@@ -1,0 +1,19 @@
+.filme-info {
+    display: flex;
+    flex-direction: column;
+    max-width: 900px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.filme-info img {
+    border-radius: 50px;
+}
+
+.filme-info h1 {
+    text-align: center;
+}
+
+.filme-info .sinopse {
+    text-align: justify;
+}
