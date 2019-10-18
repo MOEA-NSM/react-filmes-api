@@ -10,10 +10,12 @@ class PaginaFirebase extends Component {
            token : 'carregando',
            nome : '',
            idade : '',
-           tokenInput : ''
+           tokenInput : '',
+           tokenOutput : ''
         };
 
         this.cadastrar = this.cadastrar.bind(this);
+        this.buscarTokenOutPut = this.buscarTokenOutPut.bind(this);
     
         let firebaseConfig = {
             apiKey: "AIzaSyD44wj-Y8RZDCEaz2LabRUwPIg2rZ5zEE4",
@@ -31,7 +33,12 @@ class PaginaFirebase extends Component {
             let state = this.state;
             state.token = snapshot.val();
             this.setState(state);
-            console.log(state.token);
+        } );
+
+        firebase.database().ref('tokenInput').once('value').then((snapshot) => {
+            let state = this.state;
+            state.tokenOutput = snapshot.val();
+            this.setState(state);
         } );
 
         firebase.database().ref('usuarios').child(1).on('value', (snapshot) => {
@@ -40,34 +47,38 @@ class PaginaFirebase extends Component {
             state.idade = snapshot.val().idade;
             this.setState(state);
         });
-
-
-        
-
-
-      }
+    }
     
-
-      cadastrar(e) {
+    buscarTokenOutPut() {
+        firebase.database().ref('tokenInput').once('value').then((snapshot) => {
+        let state = this.state;
+        state.tokenOutput = snapshot.val();
+        this.setState(state);
+        } );
+    }
+    cadastrar(e) {
           firebase.database().ref('tokenInput').set(this.state.tokenInput);
+          this.buscarTokenOutPut();
           e.preventDefault();
-      }
-
-
+    }
+ 
     render() {
-        const {token, nome, idade, tokenInput} = this.state;
+        const {token, nome, idade, tokenOutput} = this.state;
         
 
         return(
 
-            <form>
-                <input type="text" value="{this.state.tokenInput}"
-                onChange="{(e) => this.setState({tokenInput: e.target.value})}" />
+            <form onSubmit={this.cadastrar}>
+                <input type="text" value={this.state.tokenInput}
+                onChange={(e) => this.setState({tokenInput: e.target.value})} />
 
 
                 <button type="submit" > Cadastrar </button>
 
-                <h1>Token: {token} Nome: {nome} Idade {idade} tokenInput {tokenInput} </h1>
+                <h1>Token: {token}<br />
+                    Nome: {nome}<br /> 
+                    Idade: {idade}<br /> 
+                    tokenOutput: {tokenOutput} </h1>
 
             </form>
 
