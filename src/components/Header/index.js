@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./header.css";
 import { Link } from "react-router-dom";
-import { Icon } from "react-native-elements";
+import { Icon, FlatButton } from "react-native-elements";
 
 class Header extends Component {
   render() {
@@ -13,9 +13,13 @@ class Header extends Component {
           name="heartbeat"
           type="font-awesome"
           color="#f50"
-          onPress={() => console.log("hello")}
+          onPress={() => console.log("Entrando na pagina Firebase")}
         />
         <Link to="/">Filmes em cartaz</Link>
+
+        <FlatButton>
+          <Link to="/firebase">Firebase</Link>
+        </FlatButton>
       </div>
     );
   }
