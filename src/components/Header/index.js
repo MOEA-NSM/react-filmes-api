@@ -1,20 +1,19 @@
 import React, { Component } from "react";
 import "./header.css";
 import { Link } from "react-router-dom";
-import { Icon } from "react-native-elements";
 
 class Header extends Component {
   render() {
     return (
       <div className="header">
         <Link to="/firebase">Firebase</Link>
-        <Icon
+        {/* <Icon
           raised
           name="heartbeat"
           type="font-awesome"
           color="#f50"
           onPress={() => console.log("hello")}
-        />
+        /> */}
         <Link to="/">Filmes em cartaz</Link>
       </div>
     );
